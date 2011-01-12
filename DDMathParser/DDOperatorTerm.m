@@ -7,6 +7,7 @@
 //
 
 #import "DDOperatorTerm.h"
+#import "DDTypes.h"
 
 static NSDictionary * operatorNames = nil;
 
@@ -33,19 +34,19 @@ static NSDictionary * operatorNames = nil;
 	
 	if (operatorNames == nil) {
 		operatorNames = [[NSDictionary alloc] initWithObjectsAndKeys:
-						 @"or", @"|",
-						 @"xor", @"^", 
-						 @"and", @"&", 
-						 @"lshift", @"<<", 
-						 @"rshift", @">>", 
-						 @"subtract", @"-",
-						 @"add", @"+", 
-						 @"divide", @"/", 
-						 @"multiply", @"*", 
-						 @"mod", @"%", 
-						 @"not", @"~", 
-						 @"factorial", @"!", 
-						 @"pow", @"**", 
+						 DDMathFunctionBitwiseOr, @"|",
+						 DDMathFunctionBitwiseXor, @"^", 
+						 DDMathFunctionBitwiseAnd, @"&", 
+						 DDMathFunctionBitwiseLshift, @"<<", 
+						 DDMathFunctionBitwiseRshift, @">>", 
+						 DDMathFunctionSubtract, @"-",
+						 DDMathFunctionAdd, @"+", 
+						 DDMathFunctionDivide, @"/", 
+						 DDMathFunctionMultiply, @"*", 
+						 DDMathFunctionModulo, @"%", 
+						 DDMathFunctionBitwiseNot, @"~", 
+						 DDMathFunctionFactorial, @"!", 
+						 DDMathFunctionPower, @"**", 
 						 nil];
 						 
 	}

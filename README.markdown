@@ -24,6 +24,15 @@ Registering new functions is easy.  You just need an object and a method.  For e
     NSLog(@"%@", [[DDMathEvaluator sharedMathEvaluator] evaluateString:@"multiplyBy42(3)" withSubstitutions:nil]);  //logs "126"
     
 You can also unregister added functions.  You cannot unregister built-in functions, nor can they be overridden.  The evaluator retains the target.
+
+The method used to implement the function must:
+- return a `DDExpression*`.  Must not be `nil`.
+- take 3 parameters (beyond `self` and `_cmd`):
+ - an `NSArray*`: the arguments to the function.  An array of `DDExpression` objects.  May be empty, but is never `nil`.
+ - an `NSDictionary*`: the variable substitutions for the expression.  May be `nil`.
+ - a `DDMathEvaluator*`: the evaluator being used to evaluate the expression.
+ 
+If these conditions are not met, the method will not be registered.  If your function requires that a certain number of arguments be present, you may raise an exception if that condition is not met.
     
 Function names must begin with a letter, and can contain letters and digits.  Functions are case-insensitive.  (`mUlTiPlYbY42` is the same as `multiplyby42`)
 
