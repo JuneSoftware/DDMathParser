@@ -52,8 +52,8 @@
 	if (canSimplify) {
 		if (evaluator == nil) { evaluator = [DDMathEvaluator sharedMathEvaluator]; }
 		
-		DDMathFunction mathFunction = [evaluator functionWithName:[self function]];
-		id result = mathFunction([self arguments], nil, evaluator);
+		_DDMathEvaluatorFunctionContainer * mathFunction = [evaluator functionWithName:[self function]];
+		id result = [mathFunction invokeWithArguments:[self arguments] variables:nil evaluator:evaluator];
 		
 		if ([result isKindOfClass:[_DDNumberExpression class]]) {
 			return result;
@@ -68,11 +68,10 @@
 - (NSNumber *) evaluateWithSubstitutions:(NSDictionary *)substitutions evaluator:(DDMathEvaluator *)evaluator {
 	if (evaluator == nil) { evaluator = [DDMathEvaluator sharedMathEvaluator]; }
 	
-	DDMathFunction mathFunction = [evaluator functionWithName:[self function]];
+	_DDMathEvaluatorFunctionContainer * mathFunction = [evaluator functionWithName:[self function]];
 	
 	if (mathFunction != nil) {
-		
-		id result = mathFunction([self arguments], substitutions, evaluator);
+		id result = [mathFunction invokeWithArguments:[self arguments] variables:nil evaluator:evaluator];
 		
 		while ([result isKindOfClass:[_DDVariableExpression class]]) {
 			result = [result evaluateWithSubstitutions:substitutions evaluator:evaluator];

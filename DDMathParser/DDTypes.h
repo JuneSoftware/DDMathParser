@@ -11,6 +11,4 @@
 @class DDExpression;
 @class DDMathEvaluator;
 
-typedef DDExpression* (^DDMathFunction)(NSArray *, NSDictionary *, DDMathEvaluator *);
-
 enum { DDMathFunctionUnlimitedArguments = -1 };

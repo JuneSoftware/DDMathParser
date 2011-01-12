@@ -18,7 +18,7 @@
 
 + (id) sharedMathEvaluator;
 
-- (BOOL) registerFunction:(DDMathFunction)function forName:(NSString *)functionName;
+- (BOOL) registerTarget:(id)target action:(SEL)action asFunction:(NSString *)functionName;
 - (void) unregisterFunctionWithName:(NSString *)functionName;
 - (NSArray *) registeredFunctions;
 

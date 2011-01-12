@@ -10,11 +10,22 @@
 #import "DDMathEvaluator.h"
 #import "_DDFunctionExpression.h"
 
+@interface _DDMathEvaluatorFunctionContainer : NSObject {
+	id target;
+	SEL action;
+}
+
+@property (nonatomic, retain) id target;
+@property (nonatomic) SEL action;
+
+- (DDExpression *) invokeWithArguments:(NSArray *)arguments variables:(NSDictionary *)variables evaluator:(DDMathEvaluator *)evaluator;
+
+@end
+
 @interface DDMathEvaluator ()
 
-- (DDMathFunction) functionWithName:(NSString *)functionName;
+- (_DDMathEvaluatorFunctionContainer *) functionWithName:(NSString *)functionName;
 
-- (NSNumber *) evaluateFunction:(DDExpression *)function withSubstitutions:(NSDictionary *)variables;
 - (NSString *) nsexpressionFunctionWithName:(NSString *)functionName;
 
 - (void) functionExpressionFailedToResolve:(_DDFunctionExpression *)functionExpression;

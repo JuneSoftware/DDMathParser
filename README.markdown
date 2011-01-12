@@ -10,18 +10,20 @@ Thus, `DDMathParser`.  It is written to be identical to `NSExpression` in all th
 
 ### Registering Functions
 
-Registering new functions is easy.  You just need a block, a name, and the number of arguments the function accepts.  So for example:
+Registering new functions is easy.  You just need an object and a method.  For example:
 
-    DDMathFunction function = ^ DDExpression* (NSArray * args, NSDictionary * variables, DDMathEvaluator * evaluator) {
+    - (DDExpression *) multiplyBy42:(NSArray *)args variables:(NSDictionary *)variables evaluator:(DDMathEvaluator *)evaluator {
       NSNumber * n = [[args objectAtIndex:0] evaluateWithSubstitutions:variables evaluator:evaluator];
       NSNumber * result = [NSNumber numberWithDouble:[n doubleValue] * 42.0f];
       return [DDExpression numberExpressionWithNumber:result];
     };
-    [[DDMathEvaluator sharedMathEvaluator] registerFunction:function forName:@"multiplyBy42"];
+    
+    //elsewhere
+    [[DDMathEvaluator sharedMathEvaluator] registerTarget:anObject action:@selector(multiplyBy42:variables:evaluator:) asFunction:@"multiplyBy42"];
     
     NSLog(@"%@", [[DDMathEvaluator sharedMathEvaluator] evaluateString:@"multiplyBy42(3)" withSubstitutions:nil]);  //logs "126"
     
-You can also unregister added functions.  You cannot unregister built-in functions, nor can they be overridden.
+You can also unregister added functions.  You cannot unregister built-in functions, nor can they be overridden.  The evaluator retains the target.
     
 Function names must begin with a letter, and can contain letters and digits.  Functions are case-insensitive.  (`mUlTiPlYbY42` is the same as `multiplyby42`)
 
@@ -192,7 +194,7 @@ Useful for specifying a custom parser or custom operator associativities, specif
 
 ## Compatibility
 
-`DDMathParser` requires blocks, so therefore is only compatible with iOS 4+ and Mac OS X 10.6+.
+`DDMathParser` is compatible with Mac OS X 10.5+ and iOS 3+.
 
 ## License
 
